@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 /*
 const products = [{
     image: 'images/products/athletic-cotton-socks-6-pairs.jpg',
@@ -34,6 +36,7 @@ const products = [{
 }];
 */
 
+let timeoutAdded;
 let productHTML = '';
 
 products.forEach(product => {
@@ -77,7 +80,7 @@ products.forEach(product => {
 
           <div class="product-spacer"></div>
 
-          <div class="added-to-cart">
+          <div class="added-to-cart" id="added-${product.id}">
             <img src="images/icons/checkmark.png">
             Added
           </div>
@@ -96,6 +99,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
   button.addEventListener('click', () => {
     const productId = button.dataset.productId;
     const quantitySelector = Number(document.querySelector(`.js-quantity-selector-${productId}`).value);
+    const addedText = document.getElementById(`added-${productId}`);
 
     let matchinItem;
     cart.forEach((item) => {
@@ -120,6 +124,13 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
     });
 
     document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+    
+    addedText.style.opacity = '1';
 
+    clearTimeout(timeoutAdded);
+
+    timeoutAdded = setTimeout(() => {
+      addedText.style.opacity = '0';
+    }, 2000);
   });
 });
