@@ -32,6 +32,14 @@
   align-items: start;
 }
 
+.update-quantity-input {
+  width: 30px;
+}
+
+.save-quantity-link, .update-quantity-input{
+  display: none;
+}
+
 @media (max-width: 1000px) {
   .main {
     max-width: 500px;
