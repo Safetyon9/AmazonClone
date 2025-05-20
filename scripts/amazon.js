@@ -94,6 +94,7 @@ products.forEach(product => {
     `;
 });
 
+updateCartQuantity();
 document.querySelector('.products-grid').innerHTML = productHTML;
 
 function updateCartQuantity () {
