@@ -95,7 +95,8 @@ products.forEach(product => {
     `;
 });
 
-updateCartQuantity();
+if(cartItemsQuantity()!== 0) updateCartQuantity();
+
 document.querySelector('.products-grid').innerHTML = productHTML;
 
 function updateCartQuantity () {
