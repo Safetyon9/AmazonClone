@@ -2,7 +2,7 @@ import { cart, removeFromCart, cartItemsQuantity, addToCart, updateDeliveryOptio
 import { products, getProduct } from '../../data/products.js';
 import { formatCurrency } from '../utils/money.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
-import { deliveryOptions, getDeliveryOption} from '../../data/deliveryOptions.js';
+import { deliveryOptions, getDeliveryOption, deliveryDaysCalculator} from '../../data/deliveryOptions.js';
 import { renderPaymentSummary } from './paymentSummary.js';
 
 export function renderOrderSummary() {
@@ -18,7 +18,7 @@ export function renderOrderSummary() {
         let deliveryOption = getDeliveryOption(deliveryOptionId);
 
         const today = dayjs();
-        const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+        const deliveryDate = deliveryDaysCalculator(today,deliveryOption.deliveryDays);
         const dateString = deliveryDate.format('dddd, MMMM D');
 
         cartSummaryHTML += `
@@ -78,7 +78,7 @@ export function renderOrderSummary() {
         let html = '';
 
         deliveryOptions.forEach((deliveryOption) =>{
-            const deliveryDate = today.add(deliveryOption.deliveryDays, 'days');
+            const deliveryDate = deliveryDaysCalculator(today,deliveryOption.deliveryDays);
             const dateString = deliveryDate.format('dddd, MMMM D');
 
             const priceString = deliveryOption.priceCents===0? 'FREE' : `$${formatCurrency(deliveryOption.priceCents)} -`;
@@ -123,13 +123,8 @@ export function renderOrderSummary() {
             link.addEventListener('click', () => {
                 const productId = link.dataset.productId;
                 removeFromCart(productId);
-                checkoutQuantity.innerHTML = `${cartItemsQuantity()} items`;
 
-                const container = document.querySelector(
-                    `.js-cart-item-container-${productId}`
-                );
-                container.remove();
-
+                renderOrderSummary();
                 renderPaymentSummary();
             });
         });

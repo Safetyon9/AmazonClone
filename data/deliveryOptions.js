@@ -23,3 +23,16 @@ export function getDeliveryOption(deliveryOptionId) {
 
     return deliveryOption || deliveryOptions[0];
 }
+
+const isWeekend = theDay => theDay === 'Saturday' || theDay ==='Sunday';
+
+export function deliveryDaysCalculator(day,addToDay) {
+    while(Number(addToDay)>0) {
+        day = day.add(1,'days');
+        
+        if(!isWeekend(day.format('dddd'))) {
+            addToDay--;
+        }
+    }
+    return day;
+}
