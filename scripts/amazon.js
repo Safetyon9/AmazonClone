@@ -80,6 +80,8 @@ products.forEach(product => {
             </select>
           </div>
 
+          ${product.extraInfoHTML()}
+
           <div class="product-spacer"></div>
 
           <div class="added-to-cart" id="added-${product.id}">
