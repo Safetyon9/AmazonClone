@@ -1,4 +1,4 @@
-import { Product, Clothing, getProduct } from "../../data/products.js";
+import { Product, Clothing, getProduct, loadProducts } from "../../data/products.js";
 
 describe('test suite: products', () => {
     const testProduct = new Product({
@@ -33,6 +33,10 @@ describe('test suite: products', () => {
         sizeChartLink: "images/clothing-size-chart.png"
     });
 
+    beforeAll((done) => {
+        loadProducts(done);
+    });
+
     it('testing Product class', () => {
 
         expect(testProduct.id).toEqual("8c9c52b5-5a19-4bcb-a5d1-158a74287c53");
@@ -53,7 +57,6 @@ describe('test suite: products', () => {
     it('testing getProducts', () => {
         const testId = "83d4ca15-0f35-48f5-b7a3-1ea210004f2e";
 
-        console.log(getProduct(testId));
         expect(getProduct(testId)).toEqual(testClothing);
     });
 
