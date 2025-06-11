@@ -1,4 +1,4 @@
-import { cart, removeFromCart, cartItemsQuantity, addToCart, updateDeliveryOption} from '../../data/cart.js';
+import { cart } from '../../data/cart-oop.js';
 import { products, getProduct } from '../../data/products.js';
 import dayjs from 'https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js'
 import { deliveryOptions, getDeliveryOption, deliveryDaysCalculator} from '../../data/deliveryOptions.js';
@@ -9,7 +9,7 @@ formatCurrency
 export function renderOrderSummary() {
     let cartSummaryHTML = '';
 
-    cart.forEach((cartItem) => {
+    cart.cartItems.forEach((cartItem) => {
         const productId = cartItem.productId;
         
         const matchingProduct = getProduct(productId);
@@ -76,7 +76,7 @@ export function renderOrderSummary() {
     const checkoutQuantity = document.querySelector('.js-checkout-elements');
     orderSummary.innerHTML = cartSummaryHTML;
 
-    if(checkoutQuantity !== null) checkoutQuantity.innerHTML = `${cartItemsQuantity()} items`;
+    if(checkoutQuantity !== null) checkoutQuantity.innerHTML = `${cart.cartItemsQuantity()} items`;
 
     function deliveryOptionsHTML(matchingProduct,cartItem) {
         const today = dayjs();
@@ -117,7 +117,7 @@ export function renderOrderSummary() {
         .forEach((radio) =>{
             radio.addEventListener('click', () =>{
                 const {productId, deliveryOptionId} = radio.dataset;
-                updateDeliveryOption(productId, deliveryOptionId);
+                cart.updateDeliveryOption(productId, deliveryOptionId);
                 renderOrderSummary();
                 renderPaymentSummary();
             });
@@ -127,7 +127,7 @@ export function renderOrderSummary() {
         .forEach((link) => {
             link.addEventListener('click', () => {
                 const productId = link.dataset.productId;
-                removeFromCart(productId);
+                cart.removeFromCart(productId);
 
                 renderOrderSummary();
                 renderPaymentSummary();
@@ -148,10 +148,10 @@ export function renderOrderSummary() {
                         const updateInputValue = Number(updateInput.value);
 
                         if(updateInputValue>=0 && updateInputValue<100 && updateInputValue!==''){
-                            addToCart(link.dataset.productId,updateInputValue);
+                            cart.addToCart(link.dataset.productId,updateInputValue);
                             const labelQuantity = document.querySelector(`.js-quantity-label-${link.dataset.productId}`);
                             labelQuantity.innerHTML = `${Number(labelQuantity.innerText)+updateInputValue}`;
-                            checkoutQuantity.innerHTML = `${cartItemsQuantity()} items`;
+                            checkoutQuantity.innerHTML = `${cart.cartItemsQuantity()} items`;
                         }
 
                         link.style.display = 'inline';

@@ -53,7 +53,9 @@ describe('test suite: products', () => {
     it('testing getProducts', () => {
         const testId = "83d4ca15-0f35-48f5-b7a3-1ea210004f2e";
 
+        console.log(getProduct(testId));
         expect(getProduct(testId)).toEqual(testClothing);
     });
 
 });
+

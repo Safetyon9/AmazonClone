@@ -74,3 +74,5 @@ class Cart {
     this.saveToStorage();
     }
 }
+
+export let cart = new Cart('cart');
