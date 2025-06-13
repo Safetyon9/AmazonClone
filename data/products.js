@@ -731,12 +731,13 @@ export function loadProducts(callback) {
     products = (JSON.parse(xhr.response)).map((productDetails) => {
       return productDetails.type==='clothing'?new Clothing(productDetails):new Product(productDetails);
     });
-
+    
     if(typeof callback === 'function') callback();
   });
 
   xhr.open('GET',"https://supersimplebackend.dev/products");
   xhr.send();
+
 }
 
 loadProducts();
