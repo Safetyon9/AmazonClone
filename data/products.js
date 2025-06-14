@@ -729,16 +729,13 @@ export function loadProducts() {
     products = productsData.map((productDetails) => {
       return productDetails.type==='clothing'?new Clothing(productDetails):new Product(productDetails);
     });
-  });
+  })/*.catch((error) => {
+    console.log('Unexpected error. Please try again later.',error);
+  });*/
   return promise;
 }
-/*
-loadProducts().then(() => {
-  console.log("next step");
-});
-*/
 
-/*export function loadProducts(callback) {
+export function loadProductsXML(callback) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
@@ -749,8 +746,10 @@ loadProducts().then(() => {
     if(typeof callback === 'function') callback();
   });
 
+  xhr.addEventListener('error', (error) => {
+    console.log('Unexpected error. Please try again later.',error);
+  });
+
   xhr.open('GET',"https://supersimplebackend.dev/products");
   xhr.send();
-
 }
-*/

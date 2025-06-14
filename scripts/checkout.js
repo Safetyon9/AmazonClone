@@ -14,14 +14,19 @@ loadProducts(() => {
 */
 
 async function loadPage() {
+    try{
 
-    await loadProducts();
+        await loadProducts();
 
-    await new Promise((resolve) => {
-        cart.loadCart(() => {
-            resolve();
+        await new Promise((resolve) => {
+            cart.loadCart(() => {
+                resolve();
+            });
         });
-    });
+
+    } catch (error) {
+        console.log('Unexpected error. Please try again later.\n',error);
+    }
 
     renderOrderSummary();
     renderPaymentSummary();
