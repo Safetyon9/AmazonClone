@@ -13,6 +13,24 @@ loadProducts(() => {
 });
 */
 
+async function loadPage() {
+
+    await loadProducts();
+
+    await new Promise((resolve) => {
+        cart.loadCart(() => {
+            resolve();
+        });
+    });
+
+    renderOrderSummary();
+    renderPaymentSummary();
+}
+
+loadPage();
+
+
+/*
 Promise.all([
     loadProducts(),
     new Promise((resolve) => {
@@ -25,3 +43,4 @@ Promise.all([
     renderOrderSummary();
     renderPaymentSummary();
 });
+*/
