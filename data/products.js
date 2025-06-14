@@ -3,8 +3,6 @@ import { formatCurrency } from "../scripts/utils/money.js";
 export function getProduct(productId) {
   let matchingProduct;
 
-
-
   products.forEach((product) => {
       if (product.id === productId) matchingProduct = product;
   });
@@ -724,7 +722,23 @@ export const products = [
 
 export let products = [];
 
-export function loadProducts(callback) {
+export function loadProducts() {
+  const promise = fetch("https://supersimplebackend.dev/products").then((response) => {
+    return response.json();
+  }).then((productsData) => {
+    products = productsData.map((productDetails) => {
+      return productDetails.type==='clothing'?new Clothing(productDetails):new Product(productDetails);
+    });
+  });
+  return promise;
+}
+/*
+loadProducts().then(() => {
+  console.log("next step");
+});
+*/
+
+/*export function loadProducts(callback) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener('load', () => {
@@ -739,5 +753,4 @@ export function loadProducts(callback) {
   xhr.send();
 
 }
-
-loadProducts();
+*/

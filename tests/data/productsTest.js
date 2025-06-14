@@ -34,7 +34,7 @@ describe('test suite: products', () => {
     });
 
     beforeAll((done) => {
-        loadProducts(done);
+        loadProducts().then(done);
     });
 
     it('testing Product class', () => {

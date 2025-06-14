@@ -14,11 +14,7 @@ loadProducts(() => {
 */
 
 Promise.all([
-    new Promise((resolve) => {
-        loadProducts(() => {
-            resolve('value1');
-        });
-    }),
+    loadProducts(),
     new Promise((resolve) => {
         cart.loadCart(() => {
             resolve();
