@@ -1,4 +1,4 @@
-import { products, loadProducts } from '../data/products.js';
+import { products, loadProductsXML } from '../data/products.js';
 import { cart } from '../data/cart-oop.js';
 
 /*
@@ -37,7 +37,7 @@ const products = [{
 }];
 */
 
-loadProducts(renderProductsGrid);
+loadProductsXML(renderProductsGrid);
 
 function renderProductsGrid() {
 
