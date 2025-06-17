@@ -74,7 +74,7 @@ export function renderPaymentSummary() {
             });
 
             const order = await response.json();
-            addOrder(order);
+            if(order.errorMessage !== "Error: cart is empty.") addOrder(order);
 
         } catch(error){
             console.log('Unexpected error.', error)
