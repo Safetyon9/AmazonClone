@@ -97,12 +97,7 @@ function renderOrder() {
   buyAgainButtons.forEach(buyAgainButton => {
     buyAgainButton.addEventListener('click',() => {
     cart.addToCart(buyAgainButton.dataset.id,1);
-
     cartQuantity.textContent = cart.cartItemsQuantity();
   });
-  });
-
-  document.querySelector('.js-track-button').addEventListener('click',() => {
-
   });
 }
